@@ -10,8 +10,9 @@ COPY . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose ports
-EXPOSE 3000 8000
+# Expose the ports the app runs on
+EXPOSE 3000
+EXPOSE 8000
 
-# Run the app using Reflex when the container launches
-CMD ["rx", "serve", "--host", "0.0.0.0", "--port", "3000"]
+# Run reflex app
+CMD ["rx", "run", "--no-watch"]
