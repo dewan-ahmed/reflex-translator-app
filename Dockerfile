@@ -7,19 +7,21 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Install virtualenv
+RUN pip install virtualenv
 
-# Install Reflex
-RUN pip install reflex
+# Create a virtual environment
+RUN python -m virtualenv venv
 
-# Verify installation and check PATH
-RUN echo $PATH
-RUN rx --help || echo "Reflex installation failed or not in PATH"
+# Activate the virtual environment and install dependencies
+RUN . venv/bin/activate && pip install --no-cache-dir -r requirements.txt
+
+# Make sure the virtual environment is used for the CMD
+ENV PATH="/app/venv/bin:$PATH"
 
 # Expose the ports the app runs on
 EXPOSE 3000
 EXPOSE 8000
 
 # Run reflex app
-CMD ["rx", "run", "--no-watch"]
+CMD ["reflex", "run"]
