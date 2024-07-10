@@ -13,6 +13,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Install Reflex
 RUN pip install reflex
 
+# Verify installation and check PATH
+RUN echo $PATH
+RUN rx --help || echo "Reflex installation failed or not in PATH"
+
 # Expose the ports the app runs on
 EXPOSE 3000
 EXPOSE 8000
