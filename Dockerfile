@@ -10,6 +10,9 @@ COPY . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install Reflex
+RUN pip install reflex
+
 # Expose the ports the app runs on
 EXPOSE 3000
 EXPOSE 8000
